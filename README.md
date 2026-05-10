@@ -1,4 +1,53 @@
-# Python environment tools for Visual Studio Code
+# Python environment tools for LoongArch64
+
+⚠️ **Target Platform: linux-loong64**(only)
+
+## Note: This is an Unofficial Fork
+
+This repository is a **community-maintained** fork of the official Python environment tools for Visual Studio Code, specifically ported to support the **LoongArch64** architecture. **This is NOT an official Microsoft product** and is not supported by the original maintainers. And this project is **NOT governed, signed, or endorsed by Microsoft**.
+
+- Original Project: [link to original repo](https://github.com/microsoft/python-environment-tools).
+
+- Support: Community-supported. Issues specific to LoongArch64 should be reported [here](https://github.com/wubzbz/python-environment-tools-la64/issues).
+
+### Why a LoongArch64-specific Build?
+
+While the official Python environment tools provides pre-built binaries for common architectures like x64 and ARM64, it does not include native LoongArch64 (LA64) support. This project exists to bridge that gap.
+
+### Read More
+
+- [How to build on your machine](./BUILD_LA64.md)
+- [Known issues and solution](./KNOWN_ISSUE.md)
+- [Code of conduct](./CODE_OF_CONDUCT.md)
+- [Support page](./SUPPORT.md)
+- [Security page](./SECURITY.md)
+
+## Project Philosophy
+
+### Respect for Upstream Project
+
+- **Core functionality preserved**: All environment detection and discovery logic remains unchanged
+
+- **Copyright integrity**: All original copyright notices, license headers, and attribution are preserved without modification
+
+- **Codebase alignment**: We track upstream changes and aim to minimize divergence
+
+## License
+
+This fork is released under the same MIT License as the original project.  
+All original copyright notices and license terms are retained.  
+The software is provided “**as is**”, without warranty of any kind.  
+See [LICENSE](./LICENSE) for the full license text.
+
+## Trademarks
+
+This project may reference Microsoft and third-party trademarks.
+Such references follow [Microsoft’s Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general)
+and do not imply endorsement. All trademarks are the property of their respective owners.
+
+---
+
+# Original Readme
 
 Performant Python environment tooling and support, such as locating all global Python installs and virtual environments.
 
@@ -34,6 +83,8 @@ Our approach prioritizes performance and efficiency by leveraging Rust. We minim
 Locator refresh-state contracts are documented in [docs/LOCATOR_STATE.md](docs/LOCATOR_STATE.md).
 
 ## Contributing
+
+> **Note:** The contributor license agreement (CLA) and contact email below apply to the **upstream Microsoft project only**. For contribution guidelines and code of conduct for this unofficial fork, please see [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
 This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
