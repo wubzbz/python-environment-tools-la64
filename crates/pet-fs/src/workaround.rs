@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
-//
 // LoongArch64 musl workarounds for directory operations.
 //
 // Root cause: musl's `struct stat` layout on loongarch64 does not match the
