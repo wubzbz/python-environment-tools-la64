@@ -533,6 +533,7 @@ version = "0.1.0"
 dependencies = [
  "glob",
  "lazy_static",
+ "libc",
  "log",
  "msvc_spectre_libs",
  "windows-sys 0.59.0",

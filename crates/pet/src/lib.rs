@@ -154,7 +154,7 @@ fn create_config(options: &FindOptions) -> Configuration {
     config.workspace_directories = Some(
         search_paths
             .iter()
-            .filter(|d| d.is_dir())
+            .filter(|d| pet_fs::workaround::is_dir(d))
             .cloned()
             .collect(),
     );
@@ -172,7 +172,7 @@ fn create_config(options: &FindOptions) -> Configuration {
     config.environment_directories = options.environment_directories.as_ref().map(|dirs| {
         expand_glob_patterns(dirs)
             .into_iter()
-            .filter(|p| p.is_dir())
+            .filter(|p| pet_fs::workaround::is_dir(p))
             .collect()
     });
 

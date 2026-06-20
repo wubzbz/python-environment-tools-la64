@@ -1,0 +1,25 @@
+# [source.crates-io]
+# replace-with = 'ms-crates-io'
+
+# [registries.ms-crates-io]
+# index = "sparse+https://pkgs.dev.azure.com/vscode/_packaging/crates/Cargo/index/"
+
+# Linux: -Ctarget-feature=+crt-static: Statically link the CRT.
+# Exclude loongarch64 — crt-static breaks proc-macro crate compilation.
+[target.'cfg(all(target_os = "linux", not(target_arch = "loongarch64")))']
+rustflags = ["-Ctarget-feature=+crt-static"]
+
+# -Cehcont_guard: Enable EH Continuation Metadata (https://learn.microsoft.com/en-us/cpp/build/reference/guard-enable-eh-continuation-metadata).
+# -Ccontrol-flow-guard: Enable Control Flow Guard, needed for OneBranch's post-build analysis (https://learn.microsoft.com/en-us/cpp/build/reference/guard-enable-control-flow-guard).
+# -Ctarget-feature=+crt-static: Statically link the CRT (required to link the spectre-mitigated CRT).
+[target.'cfg(target_os = "windows")']
+rustflags = ["-Ctarget-feature=+crt-static", "-Cehcont_guard", "-Ccontrol-flow-guard"]
+
+# -Clink-args=/DYNAMICBASE /CETCOMPAT: Enable "shadow stack" (https://learn.microsoft.com/en-us/cpp/build/reference/cetcompat)
+[target.'cfg(all(target_os = "windows", any(target_arch = "i686", target_arch = "x86_64")))']
+rustflags = ["-Ctarget-feature=+crt-static", "-Clink-args=/DYNAMICBASE /CETCOMPAT"]
+# LoongArch64 musl workaround: bypass broken stat/mkdir in musl libc
+[target.loongarch64-unknown-linux-musl]
+rustflags = ["--cfg", "loongarch64_musl_workaround"]
+
+
