@@ -96,7 +96,7 @@ pub fn store_cache_in_file(
     symlinks_with_times: Vec<FilePathWithMTimeCTime>,
 ) {
     let cache_file = generate_cache_file(cache_directory, executable);
-    match std::fs::create_dir_all(cache_directory) {
+    match pet_fs::workaround::create_dir_all(cache_directory) {
         Ok(_) => {
             let cache = CacheEntry {
                 environment: environment.clone(),

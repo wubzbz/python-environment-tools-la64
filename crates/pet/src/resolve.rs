@@ -29,7 +29,7 @@ pub fn resolve_environment(
 ) -> Option<ResolvedEnvironment> {
     // First check if executable is actually a file or a path.
     let mut executable = executable.to_owned();
-    if executable.is_dir() {
+    if pet_fs::workaround::is_dir(&executable) {
         trace!(
             "Looking to resolve Python executable in provided directory, {:?}, file = {:?}, sylink = {:?}, metadata = {:?}",
             executable,

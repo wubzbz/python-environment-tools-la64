@@ -164,7 +164,7 @@ pub fn find_and_report_envs(
                                 .filter_map(Result::ok)
                                 // Use path().is_dir() instead of file_type().is_dir() to follow symlinks
                                 // See: https://github.com/microsoft/python-environment-tools/issues/196
-                                .filter(|d| d.path().is_dir())
+                                .filter(|d| pet_fs::workaround::is_dir(&d.path()))
                                 .map(|p| p.path())
                                 .collect(),
                         );
@@ -288,7 +288,7 @@ pub fn find_python_environments_in_workspace_folder_recursive(
         reader
             .filter_map(Result::ok)
             // Use path().is_dir() instead of file_type().is_dir() to follow symlinks
-            .filter(|d| d.path().is_dir())
+            .filter(|d| pet_fs::workaround::is_dir(&d.path()))
             .map(|p| p.path())
             .for_each(|p| paths_to_search_first.push(p));
     }
@@ -314,7 +314,7 @@ pub fn find_python_environments_in_workspace_folder_recursive(
         for folder in reader
             .filter_map(Result::ok)
             // Use path().is_dir() instead of file_type().is_dir() to follow symlinks
-            .filter(|d| d.path().is_dir())
+            .filter(|d| pet_fs::workaround::is_dir(&d.path()))
             .map(|p| p.path())
             .filter(|p| {
                 // If this directory is a sub directory or is in the environment_directories, then do not search in this directory.

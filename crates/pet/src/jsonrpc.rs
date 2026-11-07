@@ -581,7 +581,7 @@ pub fn handle_configure(context: Arc<Context>, id: u32, params: Value) {
                         let start = Instant::now();
                         let result: Vec<PathBuf> = expand_glob_patterns(&dirs)
                             .into_iter()
-                            .filter(|p| p.is_dir())
+                            .filter(|p| pet_fs::workaround::is_dir(p))
                             .collect();
                         trace!(
                             "Expanded workspace directory patterns ({:?}) in {:?}",
@@ -598,7 +598,7 @@ pub fn handle_configure(context: Arc<Context>, id: u32, params: Value) {
                             let start = Instant::now();
                             let result: Vec<PathBuf> = expand_glob_patterns(&dirs)
                                 .into_iter()
-                                .filter(|p| p.is_dir())
+                                .filter(|p| pet_fs::workaround::is_dir(p))
                                 .collect();
                             trace!(
                                 "Expanded environment directory patterns ({:?}) in {:?}",
@@ -1364,7 +1364,7 @@ pub(crate) fn build_refresh_config(
         config.workspace_directories = Some(
             search_paths
                 .iter()
-                .filter(|p| p.is_dir())
+                .filter(|p| pet_fs::workaround::is_dir(p))
                 .cloned()
                 .collect(),
         );
