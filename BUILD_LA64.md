@@ -11,7 +11,9 @@ This document describes how to build the Python environment tools on LoongArch64
 - LoongArch64 architecture operating system
 - **Rust** (LoongArch64 version)
 - Git
-- `musl-gcc` and `musl-dev` headers (optional, recommended — e.g. `apt install musl-tools` on Loongnix / UOS)
+
+The musl target uses Rust's self-contained CRT and libc, so a separate
+`musl-gcc` toolchain is not required.
 
 ## Build Steps
 
@@ -38,8 +40,19 @@ cargo build --release --target loongarch64-unknown-linux-musl --bin pet
 The resulting binary will be at `target/loongarch64-unknown-linux-musl/release/pet`.
 It is statically linked against musl — no external libc dependency.
 
-> **Note:** Building for musl requires `musl-gcc` and musl headers.
-> On Loongnix / UOS: `apt install musl-tools`.
+The repository's `.cargo/config.toml` enables `crt-static` for this target.
+Keep that setting: without it, Cargo may produce an ELF that requests the GNU
+dynamic loader despite using the musl target.
+
+Verify the artifact before publishing:
+
+```bash
+file target/loongarch64-unknown-linux-musl/release/pet
+readelf -d target/loongarch64-unknown-linux-musl/release/pet
+```
+
+`file` must report `statically linked`, and `readelf -d` must not list a
+`NEEDED` shared library or a program interpreter.
 
 ### Alternative: gnu target
 
@@ -60,5 +73,5 @@ The resulting binary will be at `target/release/pet`.
 After building, you can run the test suite:
 
 ```bash
-cargo test --release
+cargo test --release --target loongarch64-unknown-linux-musl
 ```
